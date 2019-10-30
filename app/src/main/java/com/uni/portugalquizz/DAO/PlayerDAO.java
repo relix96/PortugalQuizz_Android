@@ -11,7 +11,6 @@ public class PlayerDAO {
     PlayerService playerService;
     Player player;
 
-
     public PlayerDAO(Context context){
         playerService = new PlayerService(context);
     }

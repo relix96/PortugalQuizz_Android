@@ -18,12 +18,10 @@ public class PlayerService extends SQLiteOpenHelper {
 
     public PlayerService(Context context) {
         super(context, name, null, version);
-
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         db.execSQL("create table player(id integer primary key autoincrement,"+"name varchar(30), score integer)");
     }
 

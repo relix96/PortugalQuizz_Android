@@ -2,6 +2,7 @@ package com.uni.portugalquizz.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -19,46 +20,37 @@ public class MainActivity extends AppCompatActivity {
     Button btnPlay;
     PlayerDAO playerDAO;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        final Integer  score=0;
         name = (EditText)findViewById(R.id.txtNamePlayer);
         btnPlay = (Button)findViewById(R.id.btnPlay);
         playerDAO = new PlayerDAO(this);
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Player player = new Player();
-                player.setName(name.getText().toString());
-                player.setScore(score);
-                System.out.print(player.toString());
-                long id = playerDAO.InsertPlayer(player);
-                player.setId(id);
-
-                    Toast.makeText(MainActivity.this,"Button clicked:"+player.getName()+"|"+id,Toast.LENGTH_SHORT).show();
-
-
-
-
-
-
+                play();
             }
         });
     }
 
+    public void play(){
+        final Integer  score=0;
+        Player player = new Player();
+        player.setName(name.getText().toString());
+        player.setScore(score);
+        System.out.print(player.toString());
+        long id = playerDAO.InsertPlayer(player);
+        player.setId(id);
+        Intent intent = new Intent(this, QuizzActivity.class);
+        startActivity(intent);
 
 
+        Toast.makeText(MainActivity.this,"Button clicked:"+player.getName()+"|"+id,Toast.LENGTH_SHORT).show();
 
-
-
-
-
+    }
 }
 
 
