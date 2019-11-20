@@ -25,7 +25,13 @@ public class QuestionService extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("select * from question");
+
+        /*db.execSQL("create table player(id_player integer primary key autoincrement,"+"name_player varchar(30), score integer)");
+        db.execSQL("create table question(id_question integer primary key autoincrement,"+"name_question varchar(50))");
+        db.execSQL("create table Answer(id_answer integer primary key autoincrement,"+"name_answer varchar(30))");
+        db.execSQL("create table player_question(id_player integer references player(id_player),id_question integer primary key references Question(id_question))");
+        db.execSQL("create table question_answer(id_question integer references Question(id_question),id_answer integer primary key references Answer(id_answer))");
+*/
 
     }
 

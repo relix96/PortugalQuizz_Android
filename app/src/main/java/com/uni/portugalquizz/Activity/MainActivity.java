@@ -5,19 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.uni.portugalquizz.Classes.Player;
 import com.uni.portugalquizz.DAO.PlayerDAO;
 import com.uni.portugalquizz.R;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText name;
-    Button btnPlay;
+    private Button btnPlay;
+    private Button btnScore;
+    private Button btnExit;
+
     PlayerDAO playerDAO;
 
     @Override
@@ -25,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        name = (EditText)findViewById(R.id.txtNamePlayer);
-        btnPlay = (Button)findViewById(R.id.btnPlay);
-        playerDAO = new PlayerDAO(this);
+        btnPlay = findViewById(R.id.btnPlay);
+        btnScore = findViewById(R.id.btnScores);
+        btnExit = findViewById(R.id.btnExit);
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,18 +36,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void play(){
-        final Integer  score=0;
+        /*final Integer  score=0;
         Player player = new Player();
         player.setName(name.getText().toString());
         player.setScore(score);
         System.out.print(player.toString());
         long id = playerDAO.InsertPlayer(player);
-        player.setId(id);
-        Intent intent = new Intent(this, QuizzActivity.class);
+        player.setId(id);*/
+        Intent intent = new Intent(this, QuizActivity.class);
         startActivity(intent);
 
 
-        Toast.makeText(MainActivity.this,"Button clicked:"+player.getName()+"|"+id,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this,"Button clicked:"+player.getName()+"|"+id,Toast.LENGTH_SHORT).show();
 
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.QuizzActivity">
+    tools:context=".Activity.QuizActivity">
 
     <Button
         android:id="@+id/btnD"
@@ -12,14 +12,17 @@
         android:layout_height="61dp"
         android:layout_marginTop="60dp"
         android:text="D:"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnC" />
+        app:layout_constraintTop_toBottomOf="@+id/btnC"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtQuestion"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="384dp"
+        android:layout_height="118dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -31,17 +34,19 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.052" />
+        app:layout_constraintVertical_bias="0.115" />
 
     <Button
         android:id="@+id/btnA"
         android:layout_width="363dp"
         android:layout_height="63dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="52dp"
         android:text="A:"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtQuestion" />
 

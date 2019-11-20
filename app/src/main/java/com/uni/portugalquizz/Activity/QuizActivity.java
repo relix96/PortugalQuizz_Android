@@ -10,9 +10,11 @@ import android.widget.TextView;
 import com.uni.portugalquizz.DAO.QuestionDAO;
 import com.uni.portugalquizz.R;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-public class QuizzActivity extends AppCompatActivity {
+public class QuizActivity extends AppCompatActivity {
     private QuestionDAO questionDAO;
     private TextView txtQuestion;
     private Button bA;
@@ -25,11 +27,11 @@ public class QuizzActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizz);
 
-        txtQuestion = (TextView)findViewById(R.id.txtQuestion);
-        bA = (Button) findViewById(R.id.btnA);
-        bB = (Button) findViewById(R.id.btnB);
-        bC = (Button) findViewById(R.id.btnC);
-        bD = (Button) findViewById(R.id.btnD);
+        txtQuestion = findViewById(R.id.txtQuestion);
+        bA = findViewById(R.id.btnA);
+        bB = findViewById(R.id.btnB);
+        bD = findViewById(R.id.btnD);
+        bC = findViewById(R.id.btnC);
         questionDAO = new QuestionDAO(this);
 
         getQuestion();
@@ -41,17 +43,18 @@ public class QuizzActivity extends AppCompatActivity {
     //
     public void getQuestion(){
         int count = 0;
+        List<String> questions = new ArrayList<>();
         Cursor res = questionDAO.getQuestion();
-        StringBuffer buffer = new StringBuffer();
         if(res.getCount() == 0)
             return;
-        while(res.moveToNext()){
-            buffer.append(res.getString(1));
-            count++;
+        else {
+            while(res.moveToNext()){
+                questions.add(res.getString(1));
+                count++;
+            }
+            int idxQuestion = random(count);
+            txtQuestion.setText(questions.get(idxQuestion));
         }
-       int question = random(count);
-
-        txtQuestion.setText(buffer.substring(0));
     }
 
     public int random(int max){
