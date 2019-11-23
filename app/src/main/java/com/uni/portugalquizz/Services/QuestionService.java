@@ -45,4 +45,16 @@ public class QuestionService extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select * from question",null);
         return res;
     }
+
+    public Cursor questionIsCorrect(String question, String answer){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select "+question+" from question",null);
+        return res;
+    }
+
+    public Cursor getAnswers(String question){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select question."+question+" from question",null);
+        return res;
+    }
 }
