@@ -11,7 +11,7 @@ import com.uni.portugalquizz.DAO.PlayerDAO;
 
 public class PlayerService extends SQLiteOpenHelper {
 
-    private static final String name="portuguese_quizz.db";
+    private static final String name="portuguese_quiz.db";
     private static final int version=1;
     private PlayerDAO playerDAO;
 

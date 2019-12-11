@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.uni.portugalquizz.Classes.Question;
 import com.uni.portugalquizz.DAO.QuestionDAO;
 
 import java.util.ArrayList;
@@ -15,9 +16,10 @@ import java.util.List;
 
 public class QuestionService extends SQLiteOpenHelper {
 
-    private static final String name="portuguese_quizz.db";
+    private static final String name="portuguese_quiz.db";
     private static final int version=1;
     private QuestionDAO questionDAO;
+
 
     public QuestionService(Context context) {
         super(context, name, null, version);
@@ -46,15 +48,19 @@ public class QuestionService extends SQLiteOpenHelper {
         return res;
     }
 
-    public Cursor questionIsCorrect(String question, String answer){
+    public Cursor answerIsCorrect(String question, String answer){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select "+question+" from question",null);
+        Cursor res = db.rawQuery("select question.name_question, Answer.name_answer,question_answer.isCorrect from question inner join question_answer on question_answer.id_question = question.id_question inner join Answer on Answer.id_answer = question_answer.id_answer WHERE question.name_question = ? and Answer.name_answer= ?",new String[]{question,answer});
         return res;
     }
 
-    public Cursor getAnswers(String question){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select question."+question+" from question",null);
+    public Cursor getAnswers(Question question){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT answer.id_answer,Answer.name_answer, question_answer.isCorrect from Answer inner join question_answer on question_answer.id_answer= Answer.id_answer INNER join question on question_answer.id_question = question.id_question where question.id_question= ?" ,new String[]{String.valueOf(question.getId())});
         return res;
+
     }
+
+
+
 }
