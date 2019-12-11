@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.uni.portugalquizz.Classes.Answer;
 import com.uni.portugalquizz.Classes.Question;
 import com.uni.portugalquizz.DAO.QuestionDAO;
 import com.uni.portugalquizz.R;
@@ -23,6 +22,8 @@ public class QuizActivity extends AppCompatActivity {
     private Button bB;
     private Button bC;
     private Button bD;
+    private TextView txtScore;
+    private int score = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class QuizActivity extends AppCompatActivity {
         ArrayList<Integer> questionsId = new ArrayList<>();
 
         txtQuestion = findViewById(R.id.txtQuestion);
+        txtScore = findViewById(R.id.txtScore);
         bA = findViewById(R.id.btnA);
         bB = findViewById(R.id.btnB);
         bD = findViewById(R.id.btnD);
@@ -81,6 +83,8 @@ public class QuizActivity extends AppCompatActivity {
 
     public boolean answerIsCorrect(String question, String answer) {
         if (questionDAO.answerIsCorrect(question, answer)) {
+            score++;
+            txtScore.setText("Score:"+score);
             Toast.makeText(QuizActivity.this, "is correct", Toast.LENGTH_LONG).show();
             Intent i = new Intent(this,QuizActivity.class);
             startActivity(i);
