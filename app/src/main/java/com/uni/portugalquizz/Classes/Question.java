@@ -9,6 +9,21 @@ public class Question {
     private List<Answer> answers;
 
 
+    public Question(long id, String name_question, List<Answer> answers) {
+        this.id = id;
+        this.name_question = name_question;
+        this.answers = answers;
+    }
+
+    public Question(long id, String name_question) {
+        this.id = id;
+        this.name_question = name_question;
+    }
+
+    public Question() {
+
+    }
+
     public long getId() {
         return id;
     }
@@ -31,21 +46,5 @@ public class Question {
 
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
-    }
-
-
-    public Question(long id, String name_question, List<Answer> answers) {
-        this.id = id;
-        this.name_question = name_question;
-        this.answers = answers;
-    }
-
-    public Question(long id, String name_question) {
-        this.id = id;
-        this.name_question = name_question;
-    }
-
-    public Question() {
-
     }
 }

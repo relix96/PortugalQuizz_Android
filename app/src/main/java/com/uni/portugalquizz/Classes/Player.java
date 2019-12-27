@@ -1,10 +1,22 @@
 package com.uni.portugalquizz.Classes;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
 
     private Long id;
     private String name;
     private Integer score;
+
+    public Player(Long id, String name, Integer score) {
+        this.id = id;
+        this.name = name;
+        this.score = score;
+    }
+
+    public Player() {
+
+    }
 
     public Long getId() {
         return id;
@@ -30,14 +42,8 @@ public class Player {
         this.score = score;
     }
 
-    public Player(Long id, String name, Integer score) {
-        this.id = id;
-        this.name = name;
-        this.score = score;
-    }
-
-    public Player() {
-
+    public void correctAnswer(){
+        score+=10;
     }
 
     @Override

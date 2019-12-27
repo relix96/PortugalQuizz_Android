@@ -1,11 +1,11 @@
 package com.uni.portugalquizz.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.uni.portugalquizz.DAO.PlayerDAO;
 import com.uni.portugalquizz.R;
@@ -13,11 +13,10 @@ import com.uni.portugalquizz.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    PlayerDAO playerDAO;
     private Button btnPlay;
     private Button btnScore;
     private Button btnExit;
-
-    PlayerDAO playerDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void play(){
+    public void play() {
         /*final Integer  score=0;
         Player player = new Player();
         player.setName(name.getText().toString());
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.print(player.toString());
         long id = playerDAO.InsertPlayer(player);
         player.setId(id);*/
-        Intent intent = new Intent(this, QuizActivity.class);
+        Intent intent = new Intent(this, PlayerScore.class);
         startActivity(intent);
 
 

@@ -5,4 +5,5 @@
     <string name="score">Score</string>
     <string name="question"> Question:</string>
     <string name="exit">Exit</string>
+    <string name="menu">Menu</string>
 </resources>

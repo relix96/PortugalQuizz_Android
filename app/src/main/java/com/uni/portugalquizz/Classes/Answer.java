@@ -6,6 +6,16 @@ public class Answer {
     private String name_Answer;
     private int isCorrect;
 
+    public Answer(int id_Question, String name_question, int isCorrect) {
+        this.id_Answer = id_Question;
+        this.name_Answer = name_question;
+        this.isCorrect = isCorrect;
+    }
+
+    public Answer() {
+
+    }
+
     public int getId_Answer() {
         return id_Answer;
     }
@@ -28,15 +38,6 @@ public class Answer {
 
     public void setIdCorrect(int idCorrect) {
         this.isCorrect = idCorrect;
-    }
-
-    public Answer(int id_Question, String name_question, int isCorrect) {
-        this.id_Answer = id_Question;
-        this.name_Answer = name_question;
-        this.isCorrect = isCorrect;
-    }
-    public Answer(){
-
     }
 
 

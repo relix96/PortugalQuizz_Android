@@ -5,14 +5,13 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.uni.portugalquizz.Classes.Player;
 import com.uni.portugalquizz.DAO.PlayerDAO;
 
 
 public class PlayerService extends SQLiteOpenHelper {
 
-    private static final String name="portuguese_quiz.db";
-    private static final int version=1;
+    private static final String name = "portuguese_quiz.db";
+    private static final int version = 1;
     private PlayerDAO playerDAO;
 
 
@@ -22,7 +21,7 @@ public class PlayerService extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table player(id integer primary key autoincrement,"+"name varchar(30), score integer)");
+        db.execSQL("create table player(id integer primary key autoincrement," + "name varchar(30), score integer)");
     }
 
     @Override
@@ -30,9 +29,9 @@ public class PlayerService extends SQLiteOpenHelper {
 
     }
 
-    public long insertData(ContentValues values){
+    public long insertData(ContentValues values) {
         SQLiteDatabase db = this.getWritableDatabase();
-        long result = db.insert("player",null,values);
+        long result = db.insert("player", null, values);
         return result;
     }
 }

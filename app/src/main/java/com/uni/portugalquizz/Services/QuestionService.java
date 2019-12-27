@@ -1,23 +1,17 @@
 package com.uni.portugalquizz.Services;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-
 import com.uni.portugalquizz.Classes.Question;
 import com.uni.portugalquizz.DAO.QuestionDAO;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class QuestionService extends SQLiteOpenHelper {
 
-    private static final String name="portuguese_quiz.db";
-    private static final int version=1;
+    private static final String name = "portuguese_quiz.db";
+    private static final int version = 1;
     private QuestionDAO questionDAO;
 
 
@@ -42,25 +36,31 @@ public class QuestionService extends SQLiteOpenHelper {
 
     }
 
-    public Cursor getQuestion(){
+    public Cursor getQuestion() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from question",null);
+        Cursor res = db.rawQuery("select * from question", null);
         return res;
     }
 
-    public Cursor answerIsCorrect(String question, String answer){
+    public Cursor answerIsCorrect(String question, String answer) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select question.name_question, Answer.name_answer,question_answer.isCorrect from question inner join question_answer on question_answer.id_question = question.id_question inner join Answer on Answer.id_answer = question_answer.id_answer WHERE question.name_question = ? and Answer.name_answer= ?",new String[]{question,answer});
+        Cursor res = db.rawQuery("select question.name_question, Answer.name_answer,question_answer.isCorrect from question inner join question_answer on question_answer.id_question = question.id_question inner join Answer on Answer.id_answer = question_answer.id_answer WHERE question.name_question = ? and Answer.name_answer= ?", new String[]{question, answer});
         return res;
     }
 
-    public Cursor getAnswers(Question question){
+    public Cursor getAnswers(Question question) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT answer.id_answer,Answer.name_answer, question_answer.isCorrect from Answer inner join question_answer on question_answer.id_answer= Answer.id_answer INNER join question on question_answer.id_question = question.id_question where question.id_question= ?" ,new String[]{String.valueOf(question.getId())});
+        Cursor res = db.rawQuery("SELECT answer.id_answer,Answer.name_answer, question_answer.isCorrect from Answer inner join question_answer on question_answer.id_answer= Answer.id_answer INNER join question on question_answer.id_question = question.id_question where question.id_question= ?", new String[]{String.valueOf(question.getId())});
         return res;
-
     }
 
+
+    // check if the questions was already asked
+    /*public Cursor checkQuestions(Player  player){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("");
+        return res;
+    }*/
 
 
 }
