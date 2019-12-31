@@ -19,7 +19,7 @@ public class PlayerScore extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_score);
-
+        playerDAO = new PlayerDAO(this);
         namePlayer =  findViewById(R.id.txtPlayerName);
     }
 

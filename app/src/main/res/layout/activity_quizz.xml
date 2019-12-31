@@ -41,6 +41,10 @@
         app:layout_constraintVertical_bias="0.115" />
 
     <Button
+        android:state_focused="true"
+        android:state_pressed="true"
+        android:drawable="@drawable/correct"
+
         android:id="@+id/btnA"
         android:layout_width="363dp"
         android:layout_height="63dp"
@@ -78,34 +82,14 @@
 
     <TextView
         android:id="@+id/lblScore"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="151dp"
+        android:layout_height="42dp"
         android:text="@string/score"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/txtQuestion"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/circle"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginBottom="504dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-
-        tools:layout_editor_absoluteX="143dp" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="102dp"
-        android:layout_height="96dp"
-        app:layout_constraintBottom_toBottomOf="@+id/circle"
-        app:layout_constraintEnd_toEndOf="@+id/circle"
-        app:layout_constraintStart_toStartOf="@+id/circle"
-        app:layout_constraintTop_toTopOf="@+id/txtQuestion"
-        app:srcCompat="@drawable/done" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

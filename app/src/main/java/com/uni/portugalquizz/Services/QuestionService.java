@@ -1,10 +1,12 @@
 package com.uni.portugalquizz.Services;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.uni.portugalquizz.Classes.Player;
 import com.uni.portugalquizz.Classes.Question;
 import com.uni.portugalquizz.DAO.QuestionDAO;
 
@@ -56,11 +58,21 @@ public class QuestionService extends SQLiteOpenHelper {
 
 
     // check if the questions was already asked
-    /*public Cursor checkQuestions(Player  player){
+    public Cursor checkQuestions(Player player, Question question){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("");
+        Cursor res = db.rawQuery("SELECT question.name_question, player.id_player from question inner join player_question on player_question.id_question= question.id_question INNER join player on player_question.id_player = player.id_player where player.id_player = ? and question.id_question = ?",new String[]{String.valueOf(player.getId()),String.valueOf(question.getId())});
         return res;
-    }*/
+    }
 
+    public long insertPlayerQuestions(ContentValues values) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.insert("player_question", null, values);
+        return result;
+    }
 
+    public Cursor countQuestions() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * from question",null);
+        return res;
+    }
 }

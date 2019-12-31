@@ -17,7 +17,7 @@ public class PlayerDAO {
 
     public long InsertPlayer(Player player) {
         ContentValues values = new ContentValues();
-        values.put("name", player.getName());
+        values.put("name_player", player.getName());
         values.put("score", player.getScore());
         return playerService.insertData(values);
     }

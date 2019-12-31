@@ -1,5 +1,9 @@
 package com.uni.portugalquizz.Activity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
@@ -30,31 +34,37 @@ public class QuizActivity extends AppCompatActivity {
     private Button bC;
     private Button bD;
     private TextView txtScore;
-    private ImageView answer;
-    private ImageView done;
-    AnimatedVectorDrawableCompat avd;
-    AnimatedVectorDrawable avd2;
-    private Player player;
+    private static  Player player;
+
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_quizz);
         player = (Player) getIntent().getSerializableExtra("player");
 
-        setContentView(R.layout.activity_quizz);
-        answer = findViewById(R.id.circle);
-        done = findViewById(R.id.imageView3);
         txtQuestion = findViewById(R.id.txtQuestion);
         txtScore = findViewById(R.id.lblScore);
         bA = findViewById(R.id.btnA);
         bB = findViewById(R.id.btnB);
         bD = findViewById(R.id.btnD);
         bC = findViewById(R.id.btnC);
-
+        txtScore.setText("Score:" + player.getScore());
         questionDAO = new QuestionDAO(this);
         getQuestion();
+    }
+
+
+    public static void restartActivity(Activity act){
+
+        Intent intent=new Intent();
+        intent.setClass(act, act.getClass());
+        intent.putExtra("player",player);
+        act.startActivity(intent);
+        //act.finish();
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -62,19 +72,19 @@ public class QuizActivity extends AppCompatActivity {
         // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.btnA:
-                answerIsCorrect(txtQuestion.getText().toString(), bA.getText().toString());
+                answerIsCorrect(txtQuestion.getText().toString(), bA.getText().toString(),bA);
                 //Toast.makeText(QuizActivity.this, "button1", Toast.LENGTH_LONG).show();
                 break;
             case R.id.btnB:
-                answerIsCorrect(txtQuestion.getText().toString(), bB.getText().toString());
+                answerIsCorrect(txtQuestion.getText().toString(), bB.getText().toString(),bB);
                 //Toast.makeText(QuizActivity.this, "button2", Toast.LENGTH_LONG).show();
                 break;
             case R.id.btnC:
-                answerIsCorrect(txtQuestion.getText().toString(), bC.getText().toString());
+                answerIsCorrect(txtQuestion.getText().toString(), bC.getText().toString(), bC);
                 // Toast.makeText(QuizActivity.this, "button3", Toast.LENGTH_LONG).show();
                 break;
             case R.id.btnD:
-                answerIsCorrect(txtQuestion.getText().toString(), bD.getText().toString());
+                answerIsCorrect(txtQuestion.getText().toString(), bD.getText().toString(),bD);
                 //Toast.makeText(QuizActivity.this, "button d", Toast.LENGTH_LONG).show();
                 break;
 
@@ -84,7 +94,7 @@ public class QuizActivity extends AppCompatActivity {
 
 
     public Question getQuestion() {
-        Question question = questionDAO.getQuestion();
+        Question question = questionDAO.getQuestion(player);
         txtQuestion.setText(question.getName_question());
         bA.setText(question.getAnswers().get(0).getName_Answer());
         bB.setText(question.getAnswers().get(1).getName_Answer());
@@ -94,46 +104,50 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public boolean answerIsCorrect(String question, String answer) {
+    public boolean answerIsCorrect(String question, String answer, Button btn) {
 
         if (questionDAO.answerIsCorrect(question, answer)) {
             player.correctAnswer();
             txtScore.setText("Score:" + player.getScore());
-            Toast.makeText(QuizActivity.this, "is correct", Toast.LENGTH_SHORT).show();
-            //showAnimation();
-            Intent i = new Intent(this, QuizActivity.class);
-            startActivity(i);
+            //questionDAO.insertAnswers(player,question);
+            //Toast.makeText(QuizActivity.this, "is correct", Toast.LENGTH_SHORT).show();
+            restartActivity(this);
             return true;
 
         } else {
-            Toast.makeText(QuizActivity.this, "is incorrect", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(this, QuizActivity.class);
-            startActivity(i);
+           // Toast.makeText(QuizActivity.this, "is incorrect", Toast.LENGTH_SHORT).show();
+            //Intent i = new Intent(this, QuizActivity.class);
+            isIncorrect();
+
             return false;
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void showAnimation(){
-        this.getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        );
+    private void isIncorrect(){
+        wrongAnswer();
 
-        Drawable draw = done.getDrawable();
-
-        if(draw instanceof AnimatedVectorDrawableCompat){
-            avd = (AnimatedVectorDrawableCompat) draw;
-            avd.start();
-        }
-        else if(draw instanceof  AnimatedVectorDrawable) {
-            avd2 = (AnimatedVectorDrawable) draw;
-            avd2.start();
-        }
     }
 
+    public Dialog wrongAnswer() {
+        final Intent  i = new Intent(this, PlayerScore.class);
+        final Intent i2 = new Intent(this, QuizActivity.class);
+        // Use the Builder class for convenient dialog construction
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("GAME OVER | YOUR SCORE IS:"+player.getScore())
+                .setPositiveButton(R.string.menu, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        startActivity(i2);
+                    }
+                })
+                .setNegativeButton(R.string.play, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                        startActivity(i);
+                    }
+                });
+        // Create the AlertDialog object and return it
+        builder.show();
+        return builder.create();
+    }
 
 }

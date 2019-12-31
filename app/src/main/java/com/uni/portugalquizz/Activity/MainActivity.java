@@ -34,20 +34,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    public void exitApp(View v){
+        finish();
+    }
+
     public void play() {
-        /*final Integer  score=0;
-        Player player = new Player();
-        player.setName(name.getText().toString());
-        player.setScore(score);
-        System.out.print(player.toString());
-        long id = playerDAO.InsertPlayer(player);
-        player.setId(id);*/
         Intent intent = new Intent(this, PlayerScore.class);
         startActivity(intent);
-
-
-        //Toast.makeText(MainActivity.this,"Button clicked:"+player.getName()+"|"+id,Toast.LENGTH_SHORT).show();
-
     }
 }
 

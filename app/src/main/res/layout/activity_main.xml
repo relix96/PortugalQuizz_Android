@@ -46,6 +46,7 @@
         android:id="@+id/btnExit"
         android:layout_width="344dp"
         android:layout_height="89dp"
+        android:onClick="exitApp"
         android:text="@string/exit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

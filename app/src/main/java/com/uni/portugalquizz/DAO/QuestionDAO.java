@@ -1,11 +1,17 @@
 package com.uni.portugalquizz.DAO;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 
 import com.uni.portugalquizz.Classes.Answer;
+import com.uni.portugalquizz.Classes.Player;
 import com.uni.portugalquizz.Classes.Question;
+import com.uni.portugalquizz.R;
 import com.uni.portugalquizz.Services.QuestionService;
 
 import java.util.ArrayList;
@@ -22,7 +28,7 @@ public class QuestionDAO extends Activity {
         questionService = new QuestionService(context);
     }
 
-    public Question getQuestion() {
+    public Question getQuestion(Player player) {
         Question question = new Question();
         List<Answer> answers;
         Cursor res = questionService.getQuestion();
@@ -42,7 +48,7 @@ public class QuestionDAO extends Activity {
                     answers = getAnswers(question);
                     question.setAnswers(answers);
                     if (idx == q) {
-                        if (questionsId.contains(res.getInt(0))) {
+                        if (checkAnswer(player,question)) {
                             aux = true;
                             break;
                         } else
@@ -58,7 +64,6 @@ public class QuestionDAO extends Activity {
 
     }
 
-
     public boolean answerIsCorrect(String question, String answer) {
         Cursor res = questionService.answerIsCorrect(question, answer);
         System.out.println("Value: " + res.getCount());
@@ -70,6 +75,32 @@ public class QuestionDAO extends Activity {
                 return true;
         }
         return false;
+    }
+
+    public long insertAnswers(Player player, Question question){
+        ContentValues values = new ContentValues();
+        values.put("id_player", player.getId());
+        values.put("id_question", question.getId());
+        return questionService.insertPlayerQuestions(values);
+    }
+
+    public boolean checkAnswer(Player player, Question question){
+        Cursor res = questionService.checkQuestions(player, question);
+        while(res.moveToNext()) {
+            if (res.getInt(1) == question.getId() || res.getCount() != countQuestions()) {
+                return true;
+            }
+            else
+                return false;
+
+        }
+        return false;
+    }
+
+
+    private int countQuestions(){
+        Cursor res = questionService.countQuestions();
+        return res.getCount();
     }
 
     public int random(int max) {

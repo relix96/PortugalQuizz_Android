@@ -12,7 +12,7 @@ public class PlayerService extends SQLiteOpenHelper {
 
     private static final String name = "portuguese_quiz.db";
     private static final int version = 1;
-    private PlayerDAO playerDAO;
+    //private PlayerDAO playerDAO;
 
 
     public PlayerService(Context context) {
@@ -21,7 +21,7 @@ public class PlayerService extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table player(id integer primary key autoincrement," + "name varchar(30), score integer)");
+        //db.execSQL("create table player(id integer primary key autoincrement," + "name varchar(30), score integer)");
     }
 
     @Override
