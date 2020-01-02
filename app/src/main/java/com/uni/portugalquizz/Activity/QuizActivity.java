@@ -130,7 +130,7 @@ public class QuizActivity extends AppCompatActivity {
 
     public Dialog wrongAnswer() {
         final Intent  i = new Intent(this, PlayerScore.class);
-        final Intent i2 = new Intent(this, QuizActivity.class);
+        final Intent i2 = new Intent(this, MainActivity.class);
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("GAME OVER | YOUR SCORE IS:"+player.getScore())
