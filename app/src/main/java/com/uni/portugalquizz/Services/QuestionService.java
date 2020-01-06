@@ -72,7 +72,9 @@ public class QuestionService extends SQLiteOpenHelper {
 
     public Cursor countQuestions() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * from question",null);
+        Cursor res = db.rawQuery("SELECT question.id, question.name_question from question",null);
         return res;
     }
+
+
 }

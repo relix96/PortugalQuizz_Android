@@ -43,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PlayerScore.class);
         startActivity(intent);
     }
+
+    public void scores(View v){
+        Intent i = new Intent(this, ScoreBoardActivity.class);
+        startActivity(i);
+    }
 }
 
 

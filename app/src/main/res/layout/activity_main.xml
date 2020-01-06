@@ -35,6 +35,7 @@
         android:layout_height="89dp"
         android:layout_marginTop="84dp"
         android:text="@string/score"
+        android:onClick="scores"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.533"

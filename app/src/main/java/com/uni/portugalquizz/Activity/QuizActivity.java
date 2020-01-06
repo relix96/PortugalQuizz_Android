@@ -21,6 +21,7 @@ import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 import com.uni.portugalquizz.Classes.Player;
 import com.uni.portugalquizz.Classes.Question;
+import com.uni.portugalquizz.DAO.PlayerDAO;
 import com.uni.portugalquizz.DAO.QuestionDAO;
 import com.uni.portugalquizz.R;
 
@@ -28,13 +29,15 @@ import java.util.ArrayList;
 
 public class QuizActivity extends AppCompatActivity {
     private QuestionDAO questionDAO;
+    private PlayerDAO playerDAO;
     private TextView txtQuestion;
     private Button bA;
     private Button bB;
     private Button bC;
     private Button bD;
     private TextView txtScore;
-    private static  Player player;
+    private static  String name;
+    private static int score=0;
 
 
 
@@ -43,15 +46,15 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizz);
-        player = (Player) getIntent().getSerializableExtra("player");
-
+        name = (String) getIntent().getSerializableExtra("name");
+        playerDAO = new PlayerDAO(this);
         txtQuestion = findViewById(R.id.txtQuestion);
         txtScore = findViewById(R.id.lblScore);
         bA = findViewById(R.id.btnA);
         bB = findViewById(R.id.btnB);
         bD = findViewById(R.id.btnD);
         bC = findViewById(R.id.btnC);
-        txtScore.setText("Score:" + player.getScore());
+        txtScore.setText("Score:" + score);
         questionDAO = new QuestionDAO(this);
         getQuestion();
     }
@@ -61,7 +64,8 @@ public class QuizActivity extends AppCompatActivity {
 
         Intent intent=new Intent();
         intent.setClass(act, act.getClass());
-        intent.putExtra("player",player);
+        intent.putExtra("name",name);
+        intent.putExtra("score",score);
         act.startActivity(intent);
         //act.finish();
 
@@ -94,7 +98,7 @@ public class QuizActivity extends AppCompatActivity {
 
 
     public Question getQuestion() {
-        Question question = questionDAO.getQuestion(player);
+        Question question = questionDAO.getQuestion(/*player*/);
         txtQuestion.setText(question.getName_question());
         bA.setText(question.getAnswers().get(0).getName_Answer());
         bB.setText(question.getAnswers().get(1).getName_Answer());
@@ -107,8 +111,8 @@ public class QuizActivity extends AppCompatActivity {
     public boolean answerIsCorrect(String question, String answer, Button btn) {
 
         if (questionDAO.answerIsCorrect(question, answer)) {
-            player.correctAnswer();
-            txtScore.setText("Score:" + player.getScore());
+            score+=10;
+            txtScore.setText("Score:" + score);
             //questionDAO.insertAnswers(player,question);
             //Toast.makeText(QuizActivity.this, "is correct", Toast.LENGTH_SHORT).show();
             restartActivity(this);
@@ -131,15 +135,19 @@ public class QuizActivity extends AppCompatActivity {
     public Dialog wrongAnswer() {
         final Intent  i = new Intent(this, PlayerScore.class);
         final Intent i2 = new Intent(this, MainActivity.class);
+        Player p = createPlayer();
+        score =0;
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("GAME OVER | YOUR SCORE IS:"+player.getScore())
-                .setPositiveButton(R.string.menu, new DialogInterface.OnClickListener() {
+       // playerDAO.updatePlayer(player);
+
+        builder.setMessage("GAME OVER "+p.getName()+" \nYOUR SCORE IS: "+p.getScore()+ "\nPlay again?")
+                .setPositiveButton("NO", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         startActivity(i2);
                     }
                 })
-                .setNegativeButton(R.string.play, new DialogInterface.OnClickListener() {
+                .setNegativeButton("YES", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                         startActivity(i);
@@ -148,6 +156,16 @@ public class QuizActivity extends AppCompatActivity {
         // Create the AlertDialog object and return it
         builder.show();
         return builder.create();
+    }
+
+    private Player createPlayer(){
+        Player player = new Player();
+        player.setName(name);
+        player.setScore(score);
+        System.out.print(player.toString());
+        long id = playerDAO.InsertPlayer(player);
+        player.setId(id);
+        return player;
     }
 
 }

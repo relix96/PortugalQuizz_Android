@@ -2,7 +2,7 @@
     <string name="app_name">Portugal Quiz</string>
     <string name="name">Type your name:</string>
     <string name="play">Play</string>
-    <string name="score">Score</string>
+    <string name="score">Scoreboard</string>
     <string name="question"> Question:</string>
     <string name="exit">Exit</string>
     <string name="menu">Menu</string>

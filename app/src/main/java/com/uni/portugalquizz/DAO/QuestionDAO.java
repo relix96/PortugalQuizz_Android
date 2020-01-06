@@ -28,7 +28,7 @@ public class QuestionDAO extends Activity {
         questionService = new QuestionService(context);
     }
 
-    public Question getQuestion(Player player) {
+    public Question getQuestion(/*Player player*/) {
         Question question = new Question();
         List<Answer> answers;
         Cursor res = questionService.getQuestion();
@@ -48,12 +48,12 @@ public class QuestionDAO extends Activity {
                     answers = getAnswers(question);
                     question.setAnswers(answers);
                     if (idx == q) {
-                        if (checkAnswer(player,question)) {
+                        /*if (checkAnswer(player,question)) {
                             aux = true;
                             break;
                         } else
                             questionsId.add((int) question.getId());
-                        return question;
+                        */return question;
                     } else
                         idx++;
                 }

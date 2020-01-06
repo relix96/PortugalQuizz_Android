@@ -9,11 +9,13 @@ import com.uni.portugalquizz.Classes.*;
 import com.uni.portugalquizz.DAO.PlayerDAO;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class PlayerScore extends AppCompatActivity {
     PlayerDAO playerDAO;
     private EditText namePlayer;
     private int score=0;
+    private String name="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,7 @@ public class PlayerScore extends AppCompatActivity {
         setContentView(R.layout.activity_player_score);
         playerDAO = new PlayerDAO(this);
         namePlayer =  findViewById(R.id.txtPlayerName);
+
     }
 
     public void goToMenu(View v){
@@ -29,16 +32,21 @@ public class PlayerScore extends AppCompatActivity {
     }
 
     public void onClickPlay(View v) {
-        if(namePlayer.getText().toString()!="") {
-            Player player = new Player();
-            player.setName(namePlayer.getText().toString());
-            player.setScore(score);
-            System.out.print(player.toString());
-            long id = playerDAO.InsertPlayer(player);
-            player.setId(id);
+        name=namePlayer.getText().toString();
+        if(!name.isEmpty()) {
             Intent intent = new Intent(this, QuizActivity.class);
-            intent.putExtra("player",player);
+            intent.putExtra("name",name);
             startActivity(intent);
         }
+        else{
+            Toast.makeText(PlayerScore.this, "Plese insert your name.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean isEmpty(String s){
+        if(s.isEmpty())
+            return true;
+        else
+            return false;
     }
 }

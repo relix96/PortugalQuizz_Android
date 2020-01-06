@@ -6,35 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".Activity.ScoreBoardActivity">
 
-    <ListView
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp" >
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <ListView
-            android:layout_width="19dp"
-            android:layout_height="19dp"
-            android:layout_marginEnd="408dp"
-            android:layout_marginRight="408dp"
-            android:layout_marginBottom="728dp" />
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </ListView>
 
     <ListView
-        android:id="@+id/lsvScore"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:id="@+id/lsvScores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/text1"
+        app:layout_constraintEnd_toEndOf="@id/text1"
+        app:layout_constraintStart_toStartOf="@id/text1"
+        app:layout_constraintTop_toTopOf="@id/text1" />
 
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        android:paddingLeft="6dip"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/lsvScores"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
